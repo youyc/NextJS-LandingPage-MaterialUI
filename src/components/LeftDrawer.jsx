@@ -1,12 +1,16 @@
-import { Drawer, Typography, Button } from "@mui/material"
+import { Drawer, Typography, Button, Box } from "@mui/material"
 import { makeStyles } from "@mui/styles"
+// import { MenuIcon } from "@mui/icons-material"
+import MenuIcon from "@mui/icons-material/Menu"
+import MenuOpenIcon from "@mui/icons-material/MenuOpen"
 
 /* React component */
 import { useState } from "react"
 
 const useStyles = makeStyles(() => ({
+  menu_button: {},
   left_drawer: {
-    width: 240,
+    width: 100,
   },
 }))
 
@@ -24,9 +28,8 @@ const LeftDrawer = () => {
         onClick={toggleDrawer(true)}
         color="secondary"
         variant="contained"
-      >
-        Open Drawer
-      </Button>
+        startIcon={state ? <MenuOpenIcon /> : <MenuIcon />}
+      ></Button>
       <Drawer
         className={classes.left_drawer}
         achor="left"
@@ -34,7 +37,7 @@ const LeftDrawer = () => {
         onClose={toggleDrawer(false)}
       >
         <div>
-          <Typography variant="h3" color="initial">
+          <Typography variant="body1" color="initial">
             drawer
           </Typography>
         </div>
