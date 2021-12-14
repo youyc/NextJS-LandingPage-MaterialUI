@@ -10,6 +10,7 @@ import { useMediaQuery, Typography } from "@mui/material"
 
 /* Import Component */
 import HeaderBar from "../src/components/Header"
+import HorizontalImageList from "../src/components/HorizontalImageList"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +44,8 @@ const Home: NextPage = () => {
       >
         good
       </Typography>
+
+      <HorizontalImageList></HorizontalImageList>
 
       {/* <footer className={styles.footer}>
         <a

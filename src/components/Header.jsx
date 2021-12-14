@@ -1,5 +1,4 @@
-import { Component } from "react"
-import { AppBar, Toolbar, Typography, Button, Box, Drawer } from "@mui/material"
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material"
 
 /* Import Component */
 import LeftDrawer from "./LeftDrawer"
