@@ -1,7 +1,23 @@
-import { ImageList, ImageListItem, Container } from "@mui/material"
+import { ImageList, ImageListItem, Container, Box } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 
+//Need improvement
+const useStyles = makeStyles(() => ({
+  image_list: {
+    // Hide Scrollbar (but scrolling not function for horizontal list)
+    /* IE and Edge */
+    "-ms-overflow-style": "none",
+    /* Firefox */
+    "scrollbar-width": "none",
+    /* Chrome */
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+}))
+
 const HorizontalImageList = () => {
+  const classes = useStyles()
   const itemData = [
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -53,9 +69,13 @@ const HorizontalImageList = () => {
     },
   ]
   return (
-    <Container>
+    <Box sx={{ m: "auto", width: "75%", height: "100%" }}>
       <ImageList
-        sx={{ width: 500, height: 250 }}
+        className={classes.image_list}
+        sx={{
+          width: "100%",
+          height: 250,
+        }}
         rowHeight={220}
         cols={1}
         gap={0}
@@ -73,7 +93,7 @@ const HorizontalImageList = () => {
           </ImageListItem>
         ))}
       </ImageList>
-    </Container>
+    </Box>
   )
 }
 
