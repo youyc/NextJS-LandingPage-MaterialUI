@@ -11,7 +11,17 @@ import styles from "../styles/Home.module.css"
 /* Import mui */
 import { useTheme } from "@mui/material/styles"
 import { makeStyles } from "@mui/styles"
-import { useMediaQuery, Typography, Button } from "@mui/material"
+import {
+  useMediaQuery,
+  Typography,
+  Button,
+  Grid,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Box,
+} from "@mui/material"
 
 /* Import Component */
 import HeaderBar from "../src/components/Header"
@@ -27,7 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Home: NextPage = () => {
+interface HomeProperty {
+  dogData?: any
+  dogImageList?: []
+}
+
+const Home: NextPage<HomeProperty> = ({ dogData, dogImageList }) => {
   const classes = useStyles()
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down("xs"))
@@ -55,15 +70,7 @@ const Home: NextPage = () => {
       <Button
         variant="contained"
         onClick={async () => {
-          const headers = {
-            "x-api-key": "e10cdc7a-3fa2-4945-b892-f9514812a1a4",
-          }
-          const data = await fetch(
-            "https://api.thedogapi.com/v1/breeds?attach_breed=0&limit=20",
-            { headers }
-          ).then(async (response) => await response.json())
-          console.log(data)
-
+          console.log(dogImageList)
           // const headers = {
           //   "x-api-key": "e10cdc7a-3fa2-4945-b892-f9514812a1a4",
           // }
@@ -75,6 +82,40 @@ const Home: NextPage = () => {
       >
         get api data
       </Button>
+
+      <Box sx={{ m: "auto", width: "75%", height: "100%" }}>
+        <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
+          {dogImageList!.map((item: any) => (
+            <Grid item xs={3}>
+              <Card sx={{ width: "100%", height: "100%" }}>
+                {/* <img
+                  src={item.url}
+                  width={200}
+                  height={150}
+                  object-fit="contain"
+                  // srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  loading="lazy"
+                /> */}
+                <CardMedia component="img" height="150" image={item.url} />
+                <CardContent>
+                  <Typography
+                    component="div"
+                    variant="body2"
+                    noWrap
+                    gutterBottom
+                  >
+                    {item.id}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Share</Button>
+                  <Button size="small">Learn More</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
       {/* <footer className={styles.footer}>
         <a
@@ -92,11 +133,25 @@ const Home: NextPage = () => {
   )
 }
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   //return multiple parameter
-//   return {
-//     props: {},
-//   }
-// }
+export const getStaticProps: GetStaticProps = async () => {
+  const headers = {
+    "x-api-key": "e10cdc7a-3fa2-4945-b892-f9514812a1a4",
+  }
+  const dogData = await fetch(
+    "https://api.thedogapi.com/v1/breeds?attach_breed=0&limit=20",
+    { headers }
+  ).then(async (response) => await response.json())
+  // console.log(data)
+
+  const dogImageList = dogData.map((item: any) => {
+    return item.image
+  })
+  // console.log(imageList)
+
+  //return multiple parameter
+  return {
+    props: { dogData, dogImageList },
+  }
+}
 
 export default Home
