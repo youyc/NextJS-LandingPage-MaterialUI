@@ -1,4 +1,9 @@
-import type { NextPage } from "next"
+import {
+  NextPage,
+  GetStaticProps,
+  GetStaticPaths,
+  GetServerSideProps,
+} from "next"
 import Head from "next/head"
 import Image from "next/image"
 import styles from "../styles/Home.module.css"
@@ -6,7 +11,7 @@ import styles from "../styles/Home.module.css"
 /* Import mui */
 import { useTheme } from "@mui/material/styles"
 import { makeStyles } from "@mui/styles"
-import { useMediaQuery, Typography } from "@mui/material"
+import { useMediaQuery, Typography, Button } from "@mui/material"
 
 /* Import Component */
 import HeaderBar from "../src/components/Header"
@@ -47,6 +52,30 @@ const Home: NextPage = () => {
 
       <HorizontalImageList></HorizontalImageList>
 
+      <Button
+        variant="contained"
+        onClick={async () => {
+          const headers = {
+            "x-api-key": "e10cdc7a-3fa2-4945-b892-f9514812a1a4",
+          }
+          const data = await fetch(
+            "https://api.thedogapi.com/v1/breeds?attach_breed=0&limit=20",
+            { headers }
+          ).then(async (response) => await response.json())
+          console.log(data)
+
+          // const headers = {
+          //   "x-api-key": "e10cdc7a-3fa2-4945-b892-f9514812a1a4",
+          // }
+          // const data = await fetch(
+          //   "https://api.thedogapi.com/v1/images/hMyT4CDXR",
+          //   { headers }
+          // ).then(async (response) => await response.json())
+        }}
+      >
+        get api data
+      </Button>
+
       {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -62,5 +91,12 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   //return multiple parameter
+//   return {
+//     props: {},
+//   }
+// }
 
 export default Home
