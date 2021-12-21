@@ -30,6 +30,7 @@ import Carousel from "react-material-ui-carousel"
 import HeaderBar from "src/components/HeaderBar"
 import HorizontalImageList from "src/components/HorizontalImageList"
 import GridList from "src/components/GridList"
+import CarouselMUI from "src/components/CarouselMUI"
 
 const useStyles = makeStyles((theme) => ({
   headerBar: {
@@ -98,64 +99,9 @@ const Home: NextPage<HomeProperty> = ({ dogData, dogImageList }) => {
           </Button>
         </Box>
 
-        <Box
-          sx={{
-            m: "auto",
-            width: "75%",
-            height: "100%",
-            mt: 5,
-            // float: "inline-start",
-          }}
-        >
-          <Box sx={{}}>
-            <Carousel
-              fullHeightHover={false} // We want the nav buttons wrapper to only be as big as the button element is
-              navButtonsProps={{
-                // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
-                style: {
-                  backgroundColor: "cornflowerblue",
-                  borderRadius: 0,
-                },
-              }}
-              navButtonsWrapperProps={{
-                // Move the buttons to the bottom. Unsetting top here to override default style.
-                style: {
-                  bottom: "0",
-                  top: "unset",
-                },
-              }}
-            >
-              {dogImageList!.map((item: any) => (
-                <Card sx={{ height: "100%", display: "inline-block" }}>
-                  {/* CardMedia Img cannot be resize here */}
-                  {/* use img Tag to resize */}
-                  <img
-                    src={item.url}
-                    width={500}
-                    height={300}
-                    object-fit="contain"
-                  />
-                  <CardContent>
-                    <Typography
-                      component="div"
-                      variant="body2"
-                      noWrap
-                      gutterBottom
-                    >
-                      {item.id}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
-              ))}
-            </Carousel>
-          </Box>
-        </Box>
-
         {/* <GridList itemList={dogImageList}></GridList> */}
+
+        <CarouselMUI itemList={dogImageList}></CarouselMUI>
 
         {/* <footer className={styles.footer}>
         <a
